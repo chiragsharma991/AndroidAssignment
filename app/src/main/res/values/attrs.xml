@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Toolbar Attributes-->
+    <declare-styleable name="Toolbar">
+        <attr name="android:title"/>
+        <attr name="showBack" format="boolean"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="titleTextColor" format="color"/>
+        <attr name="tintLeftIcon" format="color"/>
+        <attr name="backDrawable" format="integer"/>
+        <attr name="isBackgroundTransparent" format="boolean"/>
+        <attr name="textStyle" format="integer"/>
+        <attr name="titelSize" format="integer"/>
+        <attr name="isShowSave" format="boolean"/>
+        <attr name="textSave" format="string"/>
+        <attr name="title" format="string"/>
+        <attr name="isShowEditProfile" format="boolean"/>
+    </declare-styleable>
+    <!-- End Toolbar Attributes-->
+
+</resources>

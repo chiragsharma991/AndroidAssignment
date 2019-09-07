@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+
+        <import type="android.view.View"/>
+
+        <variable
+            name="userinfoviewmodel"
+            type="com.example.androidassignment.viewmodel.UserInfoviewmodel" />
+
+    </data>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container"
+        android:orientation="vertical"
+        tools:context=".view.MainActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/appbar"
+            >
+
+            <include layout="@layout/toolbar"
+
+                >
+
+            </include>
+
+         <!--   <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                app:mutableVisibility="@{viewModel.getloadingVisibility}"
+                />-->
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/mySwipeRefreshLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
+                    >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+
+                <!--Visible/Gone : If any errors -->
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/error_view"
+                    android:visibility="gone"
+                    >
+
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/error_txt"
+                        style="@style/TextViewStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:layout_centerInParent="true"
+                        >
+
+                    </androidx.appcompat.widget.AppCompatTextView>
+
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/retry"
+                        android:layout_below="@+id/error_txt"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@string/retry"
+                        android:backgroundTint="@color/colorRed"
+                        android:textColor="@color/colorWhite"
+                        >
+
+                    </androidx.appcompat.widget.AppCompatButton>
+
+
+
+                </RelativeLayout>
+
+
+            </FrameLayout>
+
+
+
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+
+    </LinearLayout>
+
+
+</layout>
