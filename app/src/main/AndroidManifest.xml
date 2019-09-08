@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.androidassignment">
 
+    <!--android permission here-->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -19,7 +20,7 @@
         tools:replace="android:allowBackup"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".view.MainActivity"
+        <activity android:name="com.example.androidassignment.dashboard.view.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:windowSoftInputMode="stateHidden|adjustPan"
             >
@@ -27,7 +28,9 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+
             </intent-filter>
+
         </activity>
     </application>
 

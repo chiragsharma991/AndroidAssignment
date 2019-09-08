@@ -1,4 +1,4 @@
-package com.example.androidassignment.rest
+package com.example.androidassignment.network
 
 object APIConstants {
 

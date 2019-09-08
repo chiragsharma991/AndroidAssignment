@@ -1,4 +1,4 @@
-package com.example.androidassignment.helper.adapter.adapter
+package com.example.androidassignment.helper.adapter
 
 
 import android.content.Context
@@ -12,10 +12,12 @@ import androidx.recyclerview.widget.RecyclerView
 import java.util.ArrayList
 
 /**
- *
+ * Comman adapter of all list
+ * @param T: Type of your list
+ * @param VM: viewbinding
  */
 class UniversalAdapter<T, VM : ViewDataBinding>(private val context: Context, private var items: ArrayList<T>?, private val layoutId: Int, private val bindingInterface: RecyclerCallback<VM, T>)
-    : RecyclerView.Adapter<UniversalAdapter<T,VM>.RecyclerViewHolder>() {
+    : RecyclerView.Adapter<UniversalAdapter<T, VM>.RecyclerViewHolder>() {
 
     inner class RecyclerViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -37,7 +39,7 @@ class UniversalAdapter<T, VM : ViewDataBinding>(private val context: Context, pr
         return RecyclerViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: UniversalAdapter<T,VM>.RecyclerViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
         val item = items!![position]
         holder.bindData(item)
     }
@@ -52,7 +54,6 @@ class UniversalAdapter<T, VM : ViewDataBinding>(private val context: Context, pr
     }
 
     fun getdata() : ArrayList<T>{
-
         return this.items!!
 
     }

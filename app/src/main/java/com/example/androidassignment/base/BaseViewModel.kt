@@ -8,9 +8,9 @@ import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.androidassignment.R
-import com.example.androidassignment.rest.APIServices
-import com.example.androidassignment.rest.ApiRetrofit
-import com.example.androidassignment.rest.LiveDataWrapper
+import com.example.androidassignment.network.APIServices
+import com.example.androidassignment.network.ApiRetrofit
+import com.example.androidassignment.network.LiveDataWrapper
 import com.example.androidassignment.utils.NetworkUtil
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -23,9 +23,9 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     var webservice: APIServices? = ApiRetrofit.retrofitInstance?.create(APIServices::class.java)
 
     /**
-     * Used via data binding in xml for showing progressbar once api call
+     * @param loadingVisibility showing progressbar (true/false) once api call
      */
-    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
+    val loadingVisibility: MutableLiveData<Boolean> = MutableLiveData()
 
     fun <T> callAPI(call: Call<T>) : MutableLiveData<LiveDataWrapper<T>>{
 
@@ -50,7 +50,6 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
                         } else {
                             val mErrorBody: String = response.errorBody()!!.string()
                             dataWrapper.errorMessage = Pair(mErrorBody, response.code())
-                            /*errorHandle(mErrorBody, response.code())*/
                         }
                         data.value = dataWrapper
                     } catch (e: Exception) {
@@ -61,9 +60,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
                 }
 
                 override fun onFailure(call: Call<T>, t: Throwable) {
-                    Log.e("onFailure", "" + t.message)
                     onHideLoader()
-
                     try {
                         dataWrapper.errorMessage = Pair(""+t.message, -1)
                         data.value = dataWrapper
@@ -73,6 +70,7 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
                 }
             })
         } else {
+            onHideLoader()
             dataWrapper.errorMessage = Pair((getApplication() as Context).getString(R.string.internet_connection_problem), 101)
             data.value = dataWrapper
         }
@@ -80,11 +78,11 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     }
 
     private fun onLoaderVisible(){
-        loadingVisibility.value = View.VISIBLE
+        loadingVisibility.value = true
     }
 
     private fun onHideLoader(){
-        loadingVisibility.value = View.GONE
+        loadingVisibility.value = false
     }
 
     fun toRequestBody(value: String): RequestBody {

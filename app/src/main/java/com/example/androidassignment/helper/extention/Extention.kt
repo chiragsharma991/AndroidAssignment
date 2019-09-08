@@ -1,4 +1,4 @@
-package com.example.androidassignment.helper.adapter.extention
+package com.example.androidassignment.helper.extention
 
 import android.app.Activity
 import android.content.Context
@@ -15,7 +15,9 @@ import org.json.JSONException
 import org.json.JSONObject
 
 
-
+/**
+ * check json data is valid or not
+ */
 fun String.isJSONValid(): Boolean {
     try {
         JSONObject(this)
@@ -29,8 +31,6 @@ fun String.isJSONValid(): Boolean {
     return true
 }
 
-
-
 /**
  * Color provider
  */
@@ -38,33 +38,23 @@ fun Context.provideColor(color: Int): Int {
     return ContextCompat.getColor(this, color)
 }
 
-fun Context.provideColorStateList(color: Int): ColorStateList? {
-    return ContextCompat.getColorStateList(this, color)
-}
-
+/**
+ * hide view
+ */
 fun View.hideView() {
     this.visibility = View.GONE
 }
 
+/**
+ * show view
+ */
 fun View.showView() {
     this.visibility = View.VISIBLE
 }
 
-fun EditText.getAllText(): String {
-    return this.text.trim().toString()
-}
-
-
-fun Context.shareText(msg : String){
-    val sendIntent = Intent()
-    sendIntent.action = Intent.ACTION_SEND
-    sendIntent.putExtra(Intent.EXTRA_TEXT, msg)
-    sendIntent.type = "text/plain"
-    this.startActivity(sendIntent)
-}
-
-
-
+/**
+ * hide keyboard
+ */
 
 fun Activity.hideKeyboard() {
     currentFocus?.let {
@@ -74,6 +64,9 @@ fun Activity.hideKeyboard() {
     }
 }
 
+/**
+ * check parent activity reference
+ */
 fun View.getParentActivity(): AppCompatActivity?{
     var context = this.context
     while (context is ContextWrapper) {

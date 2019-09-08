@@ -1,4 +1,4 @@
-package com.example.androidassignment.dataclass
+package com.example.androidassignment.dashboard.pojo
 
 data class UserInfomodel(
 

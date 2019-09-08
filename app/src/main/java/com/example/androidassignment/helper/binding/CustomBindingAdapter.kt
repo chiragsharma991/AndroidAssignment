@@ -1,12 +1,9 @@
-package com.example.androidassignment.helper.adapter.binding
+package com.example.androidassignment.helper.binding
 
 
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
@@ -15,35 +12,26 @@ import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.androidassignment.R
-import com.example.androidassignment.helper.adapter.extention.getParentActivity
-import com.example.androidassignment.helper.adapter.extention.provideColor
-import com.example.androidassignment.helper.adapter.imageloader.ImageLoader
-import java.text.DecimalFormat
+import com.example.androidassignment.helper.extention.getParentActivity
+import com.example.androidassignment.helper.imageloader.ImageLoader
+
+// Handle all this event from xml
 
 object CustomBindingAdapter {
 
-    @BindingAdapter("selectable")
-    @JvmStatic
-    fun isVisible(view: ImageView, isSelect: Boolean) {
-        view.isActivated = isSelect
-    }
 
-
-
-
-    @BindingAdapter("loadImageFromUri", "placeHolder")
-    @JvmStatic
-    fun loadImageFromUri(view: AppCompatImageView, uri: Uri?, placeholder: Drawable?) {
-        ImageLoader.loadImageFromUri(view.context, uri, placeholder, view)
-    }
-
+    /**
+     * This method used for loading image from server with ic_placeholder
+     * @param image_path: image url
+     *
+     */
 
     @BindingAdapter("setImage")
     @JvmStatic
     fun setImage(view: AppCompatImageView, image_path : String?) {
         Glide.with(view.context)
             .load(image_path?:"")
-            .apply(RequestOptions.circleCropTransform().placeholder(R.drawable.placeholder).error(R.drawable.placeholder))
+            .apply(RequestOptions().placeholder(R.color.colorGreyLite).error(R.color.colorGreyLite))
             .into(view)
 
     }

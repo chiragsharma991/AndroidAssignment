@@ -2,6 +2,7 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorWhite</item>
         <item name="colorPrimaryDark">@color/colorWhite</item>
@@ -11,31 +12,42 @@
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <item name="android:statusBarColor" tools:targetApi="m">@color/colorWhite</item>
         <item name="android:windowSoftInputMode">adjustResize|stateAlwaysHidden</item>
+
     </style>
 
+    <!-- Customize your Fullscreen theme here. -->
     <style name="AppTheme.FullScreen" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+    <!--  -->
 
+    <!-- TranslucentStatusBar -->
     <style name="AppTheme.FullScreen.TranslucentStatusBar" parent="@style/Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowFullscreen">false</item>
         <item name="android:windowTranslucentStatus">true</item>
     </style>
+    <!-- -->
 
+    <!-- error text -->
     <style name="error_appearance" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorRed</item>
         <item name="android:textSize">12sp</item>
         <item name="android:fontFamily">@font/opensans_regular</item>
     </style>
+    <!-- -->
 
+    <!-- No action bar style -->
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+    <!-- -->
 
+
+    <!--Text view-->
     <style name="TextViewStyle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -51,7 +63,11 @@
         <item name="android:textSize">@dimen/_14sdp</item>
         <item name="android:fontFamily">@font/opensans_regular</item>
     </style>
+    <!-- -->
 
+
+
+    <!--EditText view-->
     <style name="EditTextStyle" parent="Widget.AppCompat.EditText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -62,20 +78,9 @@
         <item name="android:fontFamily">@font/mavenpro_regular</item>
         <item name="android:singleLine">true</item>
     </style>
+    <!-- -->
 
-
-    <style name="HorizontalDivider">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/colorDivider</item>
-    </style>
-
-    <style name="VerticalDivider">
-        <item name="android:layout_width">1dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:background">@color/colorDivider</item>
-    </style>
-
+    <!--Title text -->
     <style name="titleStyle">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -83,18 +88,10 @@
         <item name="android:textSize">@dimen/_11sdp</item>
         <item name="android:textColor">@color/colorTextPrimary</item>
     </style>
-
-    <style name="detailStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:fontFamily">@font/opensans_semibold</item>
-        <item name="android:textSize">@dimen/_13sdp</item>
-        <item name="android:textColor">@color/colorTextPrimary</item>
-    </style>
+    <!---->
 
     <!--Card view-->
-
-    <style name="CardViewStyle" parent="CardView">
+    <style name="CardViewStyle" parent="Widget.MaterialComponents.CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_margin">@dimen/_5sdp</item>
@@ -102,15 +99,8 @@
         <item name="cardElevation">@dimen/_2sdp</item>
 
     </style>
+    <!-- -->
 
-    <style name="tab_text" parent="@android:style/TextAppearance.Widget.TabWidget">
-        <item name="android:fontFamily">@font/opensans_semibold</item>
-    </style>
-
-    <style name="AppCompatAlertDialogStyle.Transparent" parent="Theme.AppCompat.Light.Dialog.Alert">
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:background">@android:color/transparent</item>
-    </style>
 
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />

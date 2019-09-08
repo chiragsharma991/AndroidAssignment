@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
@@ -11,6 +12,7 @@
     <color name="colorGreyLite">#CDCDCD</color>
 
     <color name="colorBlack">#000000</color>
+    <color name="dark_blue">#41579F</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorBlackAlpha70">#B3000000</color>
     <color name="colorBlueGrayAlpha70">#B36586A3</color>

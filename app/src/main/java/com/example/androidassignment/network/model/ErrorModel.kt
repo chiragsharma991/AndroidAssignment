@@ -1,4 +1,4 @@
-package com.example.androidassignment.rest.model
+package com.example.androidassignment.network.model
 
 
 data class ErrorModel(

@@ -1,7 +1,7 @@
-package com.example.androidassignment.rest
+package com.example.androidassignment.network
 
-import android.text.TextUtils
 import com.example.androidassignment.BuildConfig
+import com.example.androidassignment.BuildConfig.BASE_URL
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -14,8 +14,10 @@ object ApiRetrofit {
     private var retrofit: Retrofit? = null
     private const val TIME_OUT_VALUE = 120
     private val TIME_OUT_UNIT = TimeUnit.SECONDS
-    val BASE_URL = "https://dl.dropboxusercontent.com"
 
+    /**
+     * retrofit initialization
+     */
 
     val retrofitInstance: Retrofit?
         get() {
@@ -30,6 +32,10 @@ object ApiRetrofit {
             return retrofit
         }
 
+    /**
+     * define request and http logger
+     */
+
     private val client: OkHttpClient
         get() {
             val httpClient = OkHttpClient.Builder()
@@ -41,7 +47,7 @@ object ApiRetrofit {
                 val request = original.newBuilder()
                 request.header("Accept", "application/json")
               //  if(!TextUtils.isEmpty(SharedPreferenceUtil.getString(SharedPreferenceUtil.API_TOKEN, "")))
-                 //   request.header("Authorization", "Bearer ${SharedPreferenceUtil.getString(SharedPreferenceUtil.API_TOKEN, "")}")
+             //   request.header("Authorization", "Bearer ${SharedPreferenceUtil.getString(SharedPreferenceUtil.API_TOKEN, "")}")
                 request.method(original.method(), original.body())
 
                 chain.proceed(request.build())

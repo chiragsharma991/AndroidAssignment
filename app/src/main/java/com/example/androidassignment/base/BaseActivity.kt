@@ -7,24 +7,21 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.view.animation.AlphaAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatTextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.example.androidassignment.BuildConfig
 import com.example.androidassignment.R
-import com.example.androidassignment.rest.APIConstants
-import com.example.androidassignment.rest.APIConstants.CONNECTION_RESET
-import com.example.androidassignment.rest.APIConstants.UNAUTHORIZED
-import com.example.androidassignment.rest.LiveDataWrapper
-import com.example.androidassignment.rest.model.ErrorModel
+import com.example.androidassignment.network.APIConstants
+import com.example.androidassignment.network.APIConstants.CONNECTION_RESET
+import com.example.androidassignment.network.APIConstants.UNAUTHORIZED
+import com.example.androidassignment.network.LiveDataWrapper
+import com.example.androidassignment.network.model.ErrorModel
 import com.example.androidassignment.utils.SnackbarUtil
-import com.example.androidassignment.helper.adapter.extention.isJSONValid
-import com.example.androidassignment.rest.APIConstants.NO_INTERNET
-import com.google.android.material.appbar.AppBarLayout
+import com.example.androidassignment.helper.extention.isJSONValid
+import com.example.androidassignment.network.APIConstants.NO_INTERNET
 import com.google.gson.Gson
 
 
@@ -68,39 +65,19 @@ abstract class BaseActivity : AppCompatActivity() {
         initViews(mBinding, savedInstanceState)
     }
 
-
-    fun changeStatusBarColor(color: Int) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            val window = window
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-            window.statusBarColor = color
-        }
-    }
+    /**
+     * log the data
+     */
 
     fun loge(tag: String, msg: String) {
         if (BuildConfig.DEBUG)
             Log.e(tag, msg)
     }
 
-    fun logd(tag: String, msg: String) {
-        if (BuildConfig.DEBUG)
-            Log.d(tag, msg)
-    }
-
-    fun fullScreen() {
-        if (Build.VERSION.SDK_INT >= 21) {
-            window.setFlags(
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
-                WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-            )
-        }
-    }
-
-
 
     /**
      * Check response success or error
-     * Return Pair(isResponse true or false, response code)
+     * @return Pair(isResponse true or false, response code)
      */
     fun <T> isSuccess(liveDataWrapper: LiveDataWrapper<T>?): Pair<Boolean, Int> {
         return if (liveDataWrapper?.errorMessage != null) {
@@ -163,6 +140,9 @@ abstract class BaseActivity : AppCompatActivity() {
         SnackbarUtil.errorSnackbar(msg, rootView, listener)
     }
 
+    /**
+     * hide keyboard
+     */
     fun hideKeyboard() {
         try {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -172,15 +152,14 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * show toast
+     */
+
     fun showToast(string: String) {
         Toast.makeText(this, string, Toast.LENGTH_LONG).show()
     }
 
 
-    override fun onDestroy() {
-        super.onDestroy()
-        loge(TAG(), "onDestroy--")
-
-    }
 
 }
