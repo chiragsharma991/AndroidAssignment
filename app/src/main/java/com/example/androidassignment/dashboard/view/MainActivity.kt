@@ -30,6 +30,11 @@ class MainActivity : BaseActivity() {
     private var userinfo_list: ArrayList<UserInfomodel>? = null
     lateinit var mViewModel: UserInfoviewmodel
 
+    companion object {
+
+
+    }
+
     /**
      * @param TAG: activity tag to filter out any log statement
      */
@@ -71,7 +76,6 @@ class MainActivity : BaseActivity() {
      */
 
     private fun initViewModel() {
-
         mViewModel = ViewModelProviders.of(this).get(UserInfoviewmodel::class.java)
         binding.shimmerViewContainer.showView()
         binding.shimmerViewContainer.startShimmerAnimation()
