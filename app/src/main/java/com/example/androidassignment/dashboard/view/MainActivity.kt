@@ -17,17 +17,22 @@ import com.example.androidassignment.dashboard.pojo.UserInfomodel
 import com.example.androidassignment.dashboard.viewmodel.UserInfoviewmodel
 import com.example.androidassignment.helper.extention.hideView
 import com.example.androidassignment.helper.extention.showView
+import com.example.androidassignment.storage.database.DatabaseClient
+import com.example.androidassignment.storage.entity.UserInfoEntity
+import com.jakewharton.fliptables.FlipTableConverters
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import kotlin.collections.ArrayList
+import kotlin.concurrent.thread
 
 
 class MainActivity : BaseActivity() {
 
 
-    private lateinit var mAdapter: UniversalAdapter<Row, RowUserinfolistBinding>
+    private lateinit var databaseClient: DatabaseClient
+    private lateinit var mAdapter: UniversalAdapter<UserInfoEntity, RowUserinfolistBinding>
     private lateinit var binding: ActivityMainBinding
-    private var userinfo_list: ArrayList<UserInfomodel>? = null
+    private var userinfo_list: UserInfomodel? = null
     lateinit var mViewModel: UserInfoviewmodel
 
     companion object {
@@ -57,6 +62,7 @@ class MainActivity : BaseActivity() {
         binding.errorView.visibility= View.GONE
         binding.myswipeRefreshlayout.setOnRefreshListener { getUserInfo(true) }
         binding.retry.setOnClickListener{ getUserInfo(true) }
+        databaseClient =  DatabaseClient.getInstance(this@MainActivity)
         initToolbar()
         initViewModel()
 
@@ -76,6 +82,10 @@ class MainActivity : BaseActivity() {
      */
 
     private fun initViewModel() {
+
+
+
+
         mViewModel = ViewModelProviders.of(this).get(UserInfoviewmodel::class.java)
         binding.shimmerViewContainer.showView()
         binding.shimmerViewContainer.startShimmerAnimation()
@@ -106,14 +116,51 @@ class MainActivity : BaseActivity() {
 
     fun getUserInfo(flag: Boolean) {
 
-        mViewModel.getUserInfo(flag).observe(this, Observer { liveDataWrapper ->
+        // check database first
 
-            if (isSuccess(liveDataWrapper).first) {
-                userinfo_list = ArrayList()
-                userinfo_list!!.add(liveDataWrapper.data as UserInfomodel)
-                onUIRefresh()
+        thread {
+            loge(TAG(),"database list is--"+databaseClient.appDatabase.userInfoDao().all)
+
+            if( databaseClient.appDatabase.userInfoDao().all.size <= 0){
+
+                runOnUiThread {
+
+                    mViewModel.getUserInfo(flag).observe(this, Observer { liveDataWrapper ->
+
+                        if (isSuccess(liveDataWrapper).first) {
+                            //userinfo_list = ArrayList()
+                            userinfo_list = UserInfomodel(rows = (liveDataWrapper.data as UserInfomodel).rows,title = (liveDataWrapper.data as UserInfomodel).title)
+
+                            thread {
+                                databaseClient.appDatabase.userInfoDao().drop()
+                                for(list in userinfo_list!!.rows){
+                                    databaseClient.appDatabase.userInfoDao().insert(UserInfoEntity(title = list.title ,serial_number =null,description =list.description,imageHref = list.imageHref,toolbar_title = userinfo_list!!.title))
+                                }
+                                loge(TAG(),"database--"+FlipTableConverters.fromIterable(databaseClient.appDatabase.userInfoDao().all,UserInfoEntity::class.java))
+                            }
+
+                            onUIRefresh()
+                        }
+                    })
+
+                }
+
+            }else{
+
+
+                userinfo_list = UserInfomodel(rows = databaseClient.appDatabase.userInfoDao().all,title = databaseClient.appDatabase.userInfoDao().all[0].toolbar_title!!)
+
+
+                runOnUiThread {
+
+
+                    onUIRefresh()
+
+                }
             }
-        })
+
+        }
+
 
     }
 
@@ -151,7 +198,9 @@ class MainActivity : BaseActivity() {
 
         userinfo_list?.let {
 
-            txt_title.text = userinfo_list!![0].title
+            txt_title.text = userinfo_list!!.title
+            val list : ArrayList<UserInfoEntity> = ArrayList(userinfo_list!!.rows.size) // change list to array list
+            list.addAll(userinfo_list!!.rows)
 
             recyclerview.apply {
 
@@ -162,9 +211,9 @@ class MainActivity : BaseActivity() {
                 } else {
                     mAdapter =
                         UniversalAdapter(this@MainActivity,
-                            userinfo_list!![0].rows, R.layout.row_userinfolist, object :
-                                RecyclerCallback<RowUserinfolistBinding, Row> {
-                                override fun bindData(binder: RowUserinfolistBinding, model: Row) {
+                            list, R.layout.row_userinfolist, object :
+                                RecyclerCallback<RowUserinfolistBinding, UserInfoEntity> {
+                                override fun bindData(binder: RowUserinfolistBinding, model: UserInfoEntity) {
                                     binder.row = model
                                     binder.executePendingBindings()
                                 }

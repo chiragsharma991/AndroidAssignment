@@ -27,7 +27,8 @@ android {
     buildTypes {
 
         debug {
-            buildConfigField "String", "BASE_URL", '"https://dl.dropboxusercontent.com"'
+           // buildConfigField "String", "BASE_URL", '"https://dl.dropboxusercontent.com"'
+            buildConfigField "String", "BASE_URL", '"http://ec2-35-154-253-47.ap-south-1.compute.amazonaws.com:8080/AdviseNation/api/"'
         }
         release {
             buildConfigField "String", "BASE_URL", '"https://dl.dropboxusercontent.com"'
@@ -52,6 +53,10 @@ dependencies {
      * Shimmer effect
      */
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+    /**
+     * debug database table
+     */
+    implementation "com.jakewharton.fliptables:fliptables:$fliptable_version"
     /**
      * Image loading
      */

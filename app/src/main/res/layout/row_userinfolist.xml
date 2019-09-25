@@ -12,7 +12,7 @@
 
         <variable
             name="row"
-            type="com.example.androidassignment.dashboard.pojo.Row" />
+            type="com.example.androidassignment.storage.entity.UserInfoEntity" />
 
     </data>
 

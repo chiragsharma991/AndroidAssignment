@@ -1,8 +1,10 @@
 package com.example.androidassignment.dashboard.pojo
 
+import com.example.androidassignment.storage.entity.UserInfoEntity
+
 data class UserInfomodel(
 
-    val rows: ArrayList<Row>,
+    val rows: List<UserInfoEntity>,
     val title: String
 )
 

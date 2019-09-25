@@ -8,8 +8,8 @@ import com.example.androidassignment.storage.entity.UserInfoEntity
 @Dao
 interface UserInfoDao {
 
-    @get:Query("SELECT * FROM userinfo")
-    val all: List<UserInfoEntity>
+    @get:Query("SELECT * FROM userinfo") // give []  if no data found
+    val  all: List<UserInfoEntity>
 
     @Insert
     fun insert(task: UserInfoEntity)
